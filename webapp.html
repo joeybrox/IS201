@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Family-Friendly Joke Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      color: #333;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .small-button {
+      display: inline-block;
+      padding: 8px 18px;
+      margin: 5px;
+      font-size: 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .small-button:hover {
+      background-color: #228B22;
+      transform: scale(1.05);
+    }
+
+    .big-button {
+      display: inline-block;
+      padding: 14px 32px;
+      margin: 30px auto 10px;
+      font-size: 22px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .big-button:hover {
+      background-color: #228B22;
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 48px;
+      margin: 30px 0 20px;
+    }
+
+    #joke-question {
+      font-size: 26px;
+      margin-top: 40px;
+    }
+
+    #joke-answer {
+      font-size: 24px;
+      margin-top: 20px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .reveal {
+      animation: popIn 0.8s ease forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(-5deg);
+        color: transparent;
+      }
+      60% {
+        transform: scale(1.1) rotate(2deg);
+        color: orange;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        color: #333;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav Buttons -->
+  <div class="nav-buttons">
+    <a href="index.html" class="small-button">Resume Page</a>
+    <a href="scratch.html" class="small-button">Scratch Page</a>
+
+  </div>
+
+  <!-- Page Title -->
+  <h1>😂 Family-Friendly Joke Generator</h1>
+
+  <!-- Joke Button -->
+  <button onclick="showJoke()" class="big-button">Tell Me a Joke</button>
+
+  <!-- Joke Display -->
+  <p id="joke-question"></p>
+  <p id="joke-answer"></p>
+
+  <script>
+    const jokes = [
+      { question: "Why did the scarecrow win an award?", answer: "Because he was outstanding in his field! 🌾" },
+      { question: "Why don't skeletons fight each other?", answer: "They don't have the guts! 💀" },
+      { question: "Why did the golfer bring two pairs of pants?", answer: "In case he got a hole in one! ⛳" },
+      { question: "Why can’t your nose be 12 inches long?", answer: "Because then it would be a foot! 👃" },
+      { question: "Why did the bicycle fall over?", answer: "Because it was two-tired! 🚲" },
+      { question: "Why don’t eggs tell jokes?", answer: "Because they’d crack each other up! 🥚" },
+      { question: "Why did the student eat his homework?", answer: "Because the teacher told him it was a piece of cake! 🎂" },
+      { question: "What do you call a bear with no teeth?", answer: "A gummy bear! 🐻" }
+    ];
+
+    let lastJokeIndex = -1;
+
+    function showJoke() {
+      let randomIndex;
+
+      // Ensure a new joke different from the last one
+      do {
+        randomIndex = Math.floor(Math.random() * jokes.length);
+      } while (randomIndex === lastJokeIndex);
+
+      lastJokeIndex = randomIndex;
+      const joke = jokes[randomIndex];
+
+      const questionEl = document.getElementById("joke-question");
+      const answerEl = document.getElementById("joke-answer");
+
+      // Set text first
+      questionEl.textContent = joke.question;
+      answerEl.textContent = joke.answer;
+
+      // Reset animation
+      answerEl.classList.remove("reveal");
+      void answerEl.offsetWidth;
+
+      // Show and re-animate
+      answerEl.style.visibility = "visible";
+      answerEl.classList.add("reveal");
+
+      // Confetti!
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+  </script>
+
+</body>
+</html>
